@@ -63,7 +63,7 @@ for j=1:n
     V = csvread(Vfilename(j));
     Z = csvread(Zfilename(j));
     Zcm = 100*(Z-Z(end));
-    plot(Zcm,V);
+    plot(Zcm,V,'.-');
     hold on
     legend(V_legend)
 end
@@ -72,4 +72,5 @@ xlabel('Position(cm)');
 ylabel('Velocity (m/s)');
 limits = [-67.6 3 0 v_test_f+100];
 axis(limits)
+saveas(Trajactory,'Trajectory_ZS.fig')
 

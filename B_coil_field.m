@@ -33,10 +33,10 @@ Z0 = csvread('Z_ideal.csv');
 Loop = 1000;
 z = linspace(0,l0,Loop);
 %% Wire parameters
-MOT_dL = 3E-3; % in m
-MOT_dr = 3E-3; % in m
-ZS_dL = 3E-3; % in m
-ZS_dr = 3E-3; % in m
+MOT_dL = 3.5E-3; % in m
+MOT_dr = 3.5E-3; % in m
+ZS_dL = 3.5E-3; % in m
+ZS_dr = 3.5E-3; % in m
 
 %% Fixed parameter
 ZS_Rmin = 15E-3; % in m
@@ -47,18 +47,18 @@ MOT_Zp = l0; %in m
 %% ZS Free Parameters
 
 % current
-ZSI1 = 18.9; % in A
-ZSI2 = 13.0; % in A
+ZSI1 = 22.5; % in A 23
+ZSI2 = 15.5; % in A 15.5
 
 % number of turns
 % in turns
 ZS1_n = 16; ZS2_n = 12; ZS3_n = 11; ZS4_n = 10; 
 ZS5_n = 9; ZS6_n = 8; ZS7_n = 7; ZS8_n = 6; 
-% Z_noL total = 184
-ZS1_noL = 23; ZS2_noL = 23; ZS3_noL = 23; ZS4_noL = 23;
-ZS5_noL = 23; ZS6_noL = 23; ZS7_noL = 23; ZS8_noL = 20;%35
+% Z_noL total = 
+ZS1_noL = 20; ZS2_noL = 20; ZS3_noL = 20; ZS4_noL = 20;
+ZS5_noL = 20; ZS6_noL = 20; ZS7_noL = 20; ZS8_noL = 15;%16
 % space for spacer
-d = 1E-3; 
+d = 3.3E-3; 
 
 ZS1_I = ZSI1;ZS2_I = ZSI1; ZS3_I = ZSI1; ZS4_I = ZSI1;
 ZS5_I = ZSI1; ZS6_I = ZSI1; ZS7_I = ZSI1; 
@@ -67,15 +67,15 @@ ZS8_I = ZSI2;
 %geometric parameters
 % in m
 ZS1_Zp = 0 ;
-ZS2_Zp = d+ZS1_noL*ZS_dL; ZS3_Zp = d+ ZS2_Zp+ZS2_noL*ZS_dL; ZS4_Zp = d+ZS3_Zp+ZS3_noL*ZS_dL; 
-ZS5_Zp = d+ZS4_Zp+ZS4_noL*ZS_dL; ZS6_Zp = d+ZS5_Zp+ZS5_noL*ZS_dL; ZS7_Zp = d+ZS6_Zp+ZS6_noL*ZS_dL; 
+ZS2_Zp = ZS1_noL*ZS_dL; ZS3_Zp = ZS2_Zp+ZS2_noL*ZS_dL; ZS4_Zp = ZS3_Zp+ZS3_noL*ZS_dL; 
+ZS5_Zp = ZS4_Zp+ZS4_noL*ZS_dL; ZS6_Zp = ZS5_Zp+ZS5_noL*ZS_dL; ZS7_Zp = ZS6_Zp+ZS6_noL*ZS_dL; 
 ZS8_Zp = d+ZS7_Zp+ZS7_noL*ZS_dL; 
 
 %% MOT Free parameters
 %geometric parameters
 MOT_n = 10; % in turns max 11
 MOT_noL = 20; % in turns 20
-MOT_I = 40; % in A Threshold 120 A36
+MOT_I = 47; % in A Threshold 48
 
 %% Calculate B field for each component
 BZS1 = section(ZS1_noL,ZS_dL,ZS1_n,ZS1_Zp,ZS_dr,z,ZS_Rmin,ZS1_I);
@@ -95,40 +95,40 @@ B_tot = BZS1 + BZS2 + BZS3 + BZS4 + BZS5 + BZS6 + BZS7 + BZS8 + MOT_Bz;
 Z0cm = 100*(Z0 - l0); % cm
 zcm = 100*(z - l0);
 G = 1E4;
-figure
+Bfield = figure;
 Bideal = plot(Z0cm,B0*G,'--');
 Bideal.Color = [0 0.4470 0.7410];
 hold on
-Btot = plot(zcm,B_tot*G);
+Btot = plot(zcm,B_tot*G,'.-');
 Btot.Color = [0.6350 0.0780 0.1840];
 hold on
-BMOT = plot(zcm,MOT_Bz*G);
+BMOT = plot(zcm,MOT_Bz*G,'.-');
 BMOT.Color = [0.9290 0.6940 0.1250];
 hold on
 
 ZScolor = [0.4660 0.6740 0.1880];
-Bzs1 = plot(zcm,BZS1*G);
+Bzs1 = plot(zcm,BZS1*G,'.-');
 Bzs1.Color = ZScolor;
 hold on;
-Bzs2 = plot(zcm,BZS2*G);
+Bzs2 = plot(zcm,BZS2*G,'.-');
 Bzs2.Color = ZScolor;
 hold on;
-Bzs3 = plot(zcm,BZS3*G);
+Bzs3 = plot(zcm,BZS3*G,'.-');
 Bzs3.Color = ZScolor;
 hold on;
-Bzs4 = plot(zcm,BZS4*G);
+Bzs4 = plot(zcm,BZS4*G,'.-');
 Bzs4.Color = ZScolor;
 hold on;
-Bzs5 = plot(zcm,BZS5*G);
+Bzs5 = plot(zcm,BZS5*G,'.-');
 Bzs5.Color = ZScolor;
 hold on;
-Bzs6 = plot(zcm,BZS6*G);
+Bzs6 = plot(zcm,BZS6*G,'.-');
 Bzs6.Color = ZScolor;
 hold on;
-Bzs7 = plot(zcm,BZS7*G);
+Bzs7 = plot(zcm,BZS7*G,'.-');
 Bzs7.Color = ZScolor;
 hold on;
-Bzs8 = plot(zcm,BZS8*G);
+Bzs8 = plot(zcm,BZS8*G,'.-');
 Bzs8.Color = ZScolor;
 hold on;
 
@@ -143,3 +143,4 @@ axis(limits)
 
 csvwrite('B_coil.csv',B_tot);
 csvwrite('Z_coil.csv',z);
+saveas(Bfield,'Bfield.fig')

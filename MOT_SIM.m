@@ -13,10 +13,10 @@ close all;
 %% Parameter setup
 Beam_radius = 10E-3;% MOT beam in m
 Detuning = -5; % Gamma
-s0 = 1.2;%1.2
+s0 = 2.4;%1.2
 
-v_test_i = 15 ; % m/s initial value for test initial velocity 
-v_test_f = 55; % m/s final value for test initial velocity
+v_test_i = 5; % m/s initial value for test initial velocity 
+v_test_f = 65; % m/s final value for test initial velocity
 v_test_gap = 10; % m/s step size for test initail velocity
 
 
@@ -60,5 +60,7 @@ subject='Trajectory (MOT region)';
 title(subject)
 xlabel('Position(cm)');
 ylabel('Velocity (m/s)');
-
+limits = [-1 0.2 -10 70];
+axis(limits)
+saveas(Trajactory,'Trajectory_MOT.fig')
 
